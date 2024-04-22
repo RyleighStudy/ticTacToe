@@ -6,16 +6,14 @@ const gameReset = readline.createInterface({input: process.stdin, output: proces
 let gameGrid = []
 let turnCount = 1
 let player = "X"
-let move = 0
+
 
 //starts the game
 function gameStart(){
     turnCount = 1
     player = "X"
-    gameGrid = [null, null, null, null, null, null, null, null, null]
-    console.log(gameGrid[0],gameGrid[1],gameGrid[2])
-    console.log(gameGrid[3],gameGrid[4],gameGrid[5])
-    console.log(gameGrid[6],gameGrid[7],gameGrid[8])
+    gameGrid = [[null, null, null],[null, null, null], [null, null, null]]
+    gameGrid.forEach(v=>console.log(...v))
     gameTurn()
 }
 
@@ -35,10 +33,34 @@ function gameTurn(){
 //checks if move is valid
 function validMove(move){
     if (move > 0 && move < 10){
-        if(gameGrid[move-1] == null){
-            gameGrid[move-1] = player
+        if(parseInt(move) == 1 && gameGrid[0][0] == null){
+            gameGrid[0][0] = player
             gameUpdate()
-        } else {
+        } else if(move == 2 && gameGrid[0][1] == null){
+            gameGrid[0][1] = player
+            gameUpdate()
+        } else if(move == 3 && gameGrid[0][2] == null){
+            gameGrid[0][2] = player
+            gameUpdate()
+        } else if(move == 4 && gameGrid[1][0] == null){
+            gameGrid[1][0] = player
+            gameUpdate()
+        } else if(move == 5 && gameGrid[1][1] == null){
+            gameGrid[1][1] = player
+            gameUpdate()
+        } else if(move == 6 && gameGrid[1][2] == null){
+            gameGrid[1][2] = player
+            gameUpdate()
+        } else if(move == 7 && gameGrid[2][0] == null){
+            gameGrid[2][0] = player
+            gameUpdate()
+        } else if(move == 8 && gameGrid[2][1] == null){
+            gameGrid[2][1] = player
+            gameUpdate()
+        } else if(move == 9 && gameGrid[2][2] == null){
+            gameGrid[2][2] = player
+            gameUpdate()
+        } else{
             console.log("That is not a valid move! That tile is already taken")   
             gameTurn()
         }
@@ -51,9 +73,7 @@ function validMove(move){
 //updates gamegrid
 function gameUpdate(){
     turnCount++
-    console.log(gameGrid[0],gameGrid[1],gameGrid[2])
-    console.log(gameGrid[3],gameGrid[4],gameGrid[5])
-    console.log(gameGrid[6],gameGrid[7],gameGrid[8])
+    gameGrid.forEach(v=>console.log(...v))
     if (turnCount >= 6){
         checkWin()
     }else{
@@ -63,35 +83,34 @@ function gameUpdate(){
 
 //checks if game is over
 function checkWin(){
-    if (turnCount >= 10){
+    if (gameGrid[0][0] == gameGrid[0][1] && gameGrid[0][0] == gameGrid[0][2] && gameGrid[0][0] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[1][0] == gameGrid[1][1] && gameGrid[1][0] == gameGrid[1][2] && gameGrid[1][0] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[2][0] == gameGrid[2][1] && gameGrid[2][0] == gameGrid[2][2] && gameGrid[2][0] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[0][0] == gameGrid[1][0] && gameGrid[0][0] == gameGrid[2][0] && gameGrid[0][0] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[0][1] == gameGrid[1][1] && gameGrid[0][1] == gameGrid[2][1] && gameGrid[0][1] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[0][2] == gameGrid[1][2] && gameGrid[0][2] == gameGrid[2][2] && gameGrid[0][2] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[0][0] == gameGrid[1][1] && gameGrid[0][0] == gameGrid[2][2] && gameGrid[0][0] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (gameGrid[0][2] == gameGrid[1][1] && gameGrid[0][2] == gameGrid[2][0] && gameGrid[0][2] != null){
+        console.log(player + " wins!!!")
+        gameEnd()
+    } else if (turnCount >= 10){
         console.log("It's a draw!!!")
         gameEnd()
-    }
-    if (gameGrid[0] == gameGrid[1] && gameGrid[0] == gameGrid[2] && gameGrid[0] != null){
-            console.log(player + " wins!!!")
-            gameEnd()
-        } else if (gameGrid[3] == gameGrid[4] && gameGrid[3] == gameGrid[5] && gameGrid[3] != null){
-                console.log(player + " wins!!!")
-                gameEnd()
-            } else if (gameGrid[6] == gameGrid[7] && gameGrid[6] == gameGrid[8] && gameGrid[6] != null){
-                    console.log(player + " wins!!!")
-                    gameEnd()
-                } else if (gameGrid[0] == gameGrid[3] && gameGrid[0] == gameGrid[6] && gameGrid[0] != null){
-                        console.log(player + " wins!!!")
-                        gameEnd()
-                    } else if (gameGrid[1] == gameGrid[4] && gameGrid[1] == gameGrid[7] && gameGrid[1] != null){
-                            console.log(player + " wins!!!")
-                            gameEnd()
-                        } else if (gameGrid[2] == gameGrid[5] && gameGrid[2] == gameGrid[8] && gameGrid[2] != null){
-                                console.log(player + " wins!!!")
-                                gameEnd()
-                            } else if (gameGrid[0] == gameGrid[4] && gameGrid[0] == gameGrid[8] && gameGrid[0] != null){
-                                    console.log(player + " wins!!!")
-                                    gameEnd()
-                                } else if (gameGrid[2] == gameGrid[4] && gameGrid[2] == gameGrid[6] && gameGrid[2] != null){
-                                        console.log(player + " wins!!!")
-                                        gameEnd()
-                                    } else {
+    } else {
         gameTurn()
     }
 }
