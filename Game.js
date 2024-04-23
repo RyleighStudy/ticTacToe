@@ -3,16 +3,20 @@ const readline = require('node:readline')
 const process = require('process')
 const playerMove = readline.createInterface({input: process.stdin, output: process.stdout})
 const gameReset = readline.createInterface({input: process.stdin, output: process.stdout})
-let gameGrid = []
+const gameGrid = []
 let turnCount = 1
 let player = "X"
+
 
 
 //starts the game
 function gameStart(){
     turnCount = 1
-    player = "X"
-    gameGrid = [[null, null, null],[null, null, null], [null, null, null]]
+    gridRows = 0
+    while(gameGrid.length > 0) {
+        gameGrid.pop()
+    }
+    gameGrid.push([null,null,null],[null,null,null],[null,null,null])
     gameGrid.forEach(v=>console.log(...v))
     gameTurn()
 }
