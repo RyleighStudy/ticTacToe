@@ -12,10 +12,7 @@ let player = "X"
 //starts the game
 function gameStart(){
     turnCount = 1
-    gridRows = 0
-    while(gameGrid.length > 0) {
-        gameGrid.pop()
-    }
+    gameGrid.length = 0
     gameGrid.push([null,null,null],[null,null,null],[null,null,null])
     gameGrid.forEach(v=>console.log(...v))
     gameTurn()
