@@ -34,38 +34,15 @@ function gameTurn(){
 //checks if move is valid
 function validMove(move){
     if (move > 0 && move < 10){
-        if(parseInt(move) == 1 && gameGrid[0][0] == null){
-            gameGrid[0][0] = player
+        move--
+        if(!gameGrid[Math.floor(move/3)][move%3]){
+            gameGrid[Math.floor(move/3)][move%3] = player
             gameUpdate()
-        } else if(move == 2 && gameGrid[0][1] == null){
-            gameGrid[0][1] = player
-            gameUpdate()
-        } else if(move == 3 && gameGrid[0][2] == null){
-            gameGrid[0][2] = player
-            gameUpdate()
-        } else if(move == 4 && gameGrid[1][0] == null){
-            gameGrid[1][0] = player
-            gameUpdate()
-        } else if(move == 5 && gameGrid[1][1] == null){
-            gameGrid[1][1] = player
-            gameUpdate()
-        } else if(move == 6 && gameGrid[1][2] == null){
-            gameGrid[1][2] = player
-            gameUpdate()
-        } else if(move == 7 && gameGrid[2][0] == null){
-            gameGrid[2][0] = player
-            gameUpdate()
-        } else if(move == 8 && gameGrid[2][1] == null){
-            gameGrid[2][1] = player
-            gameUpdate()
-        } else if(move == 9 && gameGrid[2][2] == null){
-            gameGrid[2][2] = player
-            gameUpdate()
-        } else{
+        } else {
             console.log("That is not a valid move! That tile is already taken")   
             gameTurn()
         }
-    } else {
+    } else{
         console.log("That is not a valid move! Valid moves are numbers 1-9")   
         gameTurn()
     }
@@ -86,34 +63,26 @@ function gameUpdate(){
 function checkWin(){
     if (gameGrid[0][0] == gameGrid[0][1] && gameGrid[0][0] == gameGrid[0][2] && gameGrid[0][0] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[1][0] == gameGrid[1][1] && gameGrid[1][0] == gameGrid[1][2] && gameGrid[1][0] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[2][0] == gameGrid[2][1] && gameGrid[2][0] == gameGrid[2][2] && gameGrid[2][0] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[0][0] == gameGrid[1][0] && gameGrid[0][0] == gameGrid[2][0] && gameGrid[0][0] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[0][1] == gameGrid[1][1] && gameGrid[0][1] == gameGrid[2][1] && gameGrid[0][1] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[0][2] == gameGrid[1][2] && gameGrid[0][2] == gameGrid[2][2] && gameGrid[0][2] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[0][0] == gameGrid[1][1] && gameGrid[0][0] == gameGrid[2][2] && gameGrid[0][0] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (gameGrid[0][2] == gameGrid[1][1] && gameGrid[0][2] == gameGrid[2][0] && gameGrid[0][2] != null){
         console.log(player + " wins!!!")
-        gameEnd()
     } else if (turnCount >= 10){
         console.log("It's a draw!!!")
-        gameEnd()
     } else {
         gameTurn()
     }
+    gameEnd()
 }
 
 //allows the game to reset or end
